@@ -3,6 +3,8 @@ package com.chogoon.dagger2.screens;
 import android.app.Activity;
 
 import com.chogoon.dagger2.screens.home.AdapterRepos;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import dagger.Module;
@@ -24,6 +26,12 @@ public class HomeActivityModule {
     @HomeActivityScope
     public Activity activity(){
         return activity;
+    }
+
+    @Provides
+    @HomeActivityScope
+    public DatabaseReference database(){
+        return FirebaseDatabase.getInstance().getReference();
     }
 //    @Provides
 //    @HomeActivityScope

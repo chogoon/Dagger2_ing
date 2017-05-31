@@ -7,18 +7,20 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.chogoon.dagger2.models.GithubRepo;
+import com.chogoon.dagger2.models.ItemData;
 import com.chogoon.dagger2.screens.HomeActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
 
 public class AdapterRepos extends BaseAdapter {
 
-  private final List<GithubRepo> repoList = new ArrayList<>(0);
+  private final List<ItemData> list = new ArrayList<>(0);
   private final Picasso picasso;
   private final Context context;
 
@@ -30,12 +32,12 @@ public class AdapterRepos extends BaseAdapter {
 
   @Override
   public int getCount() {
-    return repoList.size();
+    return list.size();
   }
 
   @Override
-  public GithubRepo getItem(int position) {
-    return repoList.get(position);
+  public ItemData getItem(int position) {
+    return list.get(position);
   }
 
   @Override
@@ -45,7 +47,7 @@ public class AdapterRepos extends BaseAdapter {
 
   @Override
   public long getItemId(int position) {
-    return repoList.get(position).id;
+    return list.get(position).id;
   }
 
   @Override
@@ -57,16 +59,35 @@ public class AdapterRepos extends BaseAdapter {
       repoListItem = (RepoListItem) convertView;
     }
 
-    repoListItem.setRepo(repoList.get(position));
+    repoListItem.setRepo(list.get(position));
 
     return repoListItem;
   }
 
-  public void swapData(Collection<GithubRepo> githubRepos) {
-    repoList.clear();
+  public void swapData(Collection<ItemData> githubRepos) {
+    list.clear();
     if(githubRepos != null) {
-      repoList.addAll(githubRepos);
+      list.addAll(githubRepos);
     }
+    notifyDataSetChanged();
+  }
+
+  public void addData(ItemData data) {
+    list.add(data);
+//    Collections.sort(list);
+    notifyDataSetChanged();
+  }
+
+  public void swapData(ItemData data) {
+    int position = list.indexOf(data);
+    if(list.remove(data)){
+      list.add(position, data);
+    }
+    notifyDataSetChanged();
+  }
+
+  public void removeData(ItemData data) {
+    list.remove(data);
     notifyDataSetChanged();
   }
 

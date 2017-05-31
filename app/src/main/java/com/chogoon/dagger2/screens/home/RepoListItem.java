@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.chogoon.dagger2.R;
 import com.chogoon.dagger2.models.GithubRepo;
+import com.chogoon.dagger2.models.ItemData;
 import com.squareup.picasso.Picasso;
 
 import org.joda.time.format.DateTimeFormat;
@@ -54,21 +55,19 @@ public class RepoListItem extends FrameLayout {
         ButterKnife.bind(this);
     }
 
-    public void setRepo(GithubRepo githubRepo) {
+    public void setRepo(ItemData data) {
         Locale locale = getResources().getConfiguration().locale;
 
-        name.setText(githubRepo.name);
-        description.setVisibility(TextUtils.isEmpty(githubRepo.description) ? GONE : VISIBLE);
-        description.setText(githubRepo.description);
+        name.setText(data.name);
 
-        stars.setText(String.format(locale, "%d", githubRepo.stargazersCount));
-        issues.setText(String.format(locale, "%d", githubRepo.openIssuesCount));
-        forks.setText(String.format(locale, "%d", githubRepo.forksCount));
+        stars.setText(String.format(locale, "%d", 0));
+        issues.setText(String.format(locale, "%d", 0));
+        forks.setText(String.format(locale, "%d", 0));
 
-        updatedAt.setText(getResources()
-                .getString(R.string.last_pushed, DATE_TIME_FORMATTER.print(githubRepo.updatedAt)));
+//        updatedAt.setText(getResources()
+//                .getString(R.string.last_pushed, DATE_TIME_FORMATTER.print(githubRepo.updatedAt)));
 
-        picasso.load(githubRepo.owner.avatarUrl)
+        picasso.load("http://image.goodchoice.kr" + data.imagePath)
                 .placeholder(R.drawable.ic_person_black_24dp)
                 .into(avatarImage);
     }

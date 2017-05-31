@@ -27,7 +27,6 @@ public class GithubServiceModule {
     }
 
     @Provides
-    @GithubApplicationScope
     public Gson gson(){
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(DateTime.class, new DateTimeConverter());
@@ -35,12 +34,11 @@ public class GithubServiceModule {
     }
 
     @Provides
-    @GithubApplicationScope
     public Retrofit retrofit(OkHttpClient okHttpClient, Gson gson){
          return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
                  .client(okHttpClient)
-                .baseUrl("https://api.github.com/")
+                .baseUrl("https://api3.goodchoice.kr/")
                 .build();
     }
 
