@@ -19,7 +19,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-@SuppressLint("ViewConstructor")
+//@SuppressLint("ViewConstructor")
 public class RepoListItem extends FrameLayout {
 
     private final Picasso picasso;

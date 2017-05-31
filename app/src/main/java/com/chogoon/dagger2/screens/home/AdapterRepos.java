@@ -1,5 +1,6 @@
 package com.chogoon.dagger2.screens.home;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,7 @@ public class AdapterRepos extends BaseAdapter {
   private final Context context;
 
   @Inject
-  public AdapterRepos(HomeActivity context, Picasso picasso) {
+  public AdapterRepos(Activity context, Picasso picasso) {
     this.context = context;
     this.picasso = picasso;
   }
@@ -53,7 +54,7 @@ public class AdapterRepos extends BaseAdapter {
     if(convertView == null) {
       repoListItem = new RepoListItem(context, picasso);
     } else {
-      repoListItem = RepoListItem.class.cast(convertView);
+      repoListItem = (RepoListItem) convertView;
     }
 
     repoListItem.setRepo(repoList.get(position));

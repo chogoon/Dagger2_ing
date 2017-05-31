@@ -9,13 +9,12 @@ import dagger.Component;
  * Created by chogoon on 2017-05-31.
  */
 
-@Component(modules = {GithubServiceModule.class, PicassoModule.class })
+@GithubApplicationScope
+@Component(modules = {GithubServiceModule.class, PicassoModule.class, ActivityModule.class})
 public interface GithubApplicationComponent {
 
     Picasso getPicasso();
 
     GithubService getGithubService();
-
-
 
 }

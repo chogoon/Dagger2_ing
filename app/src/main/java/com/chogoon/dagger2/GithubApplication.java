@@ -3,6 +3,7 @@ package com.chogoon.dagger2;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 import com.chogoon.dagger2.network.DateTimeConverter;
 import com.chogoon.dagger2.network.GithubService;
@@ -42,8 +43,7 @@ public class GithubApplication extends Application {
 
     //      timber           file
 
-    private GithubService githubService;
-    private Picasso picasso;
+    private GithubApplicationComponent component;
 
     @Override
     public void onCreate() {
@@ -51,24 +51,18 @@ public class GithubApplication extends Application {
 
         Timber.plant(new Timber.DebugTree());
 
-        GithubApplicationComponent component = DaggerGithubApplicationComponent.builder()
+        component = DaggerGithubApplicationComponent.builder()
                 .contextModule(new ContextModule(this))
                 .build();
 
-        githubService = component.getGithubService();
-        picasso = component.getPicasso();
+    }
 
+    public GithubApplicationComponent component(){
+        return component;
     }
 
     public static GithubApplication get(Activity activity) {
         return (GithubApplication) activity.getApplication();
     }
 
-    public GithubService getGithubService() {
-        return githubService;
-    }
-
-    public Picasso getPicasso() {
-        return picasso;
-    }
 }

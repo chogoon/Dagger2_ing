@@ -27,11 +27,12 @@ public class HomeActivity extends AppCompatActivity {
   @BindView(R.id.repo_home_list)
   ListView listView;
 
+  @Inject
   GithubService githubService;
 
   Call<List<GithubRepo>> reposCall;
 
-  Picasso picasso;
+  @Inject
   AdapterRepos adapterRepos;
 
   @Override
@@ -39,12 +40,13 @@ public class HomeActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_home);
     ButterKnife.bind(this);
-    githubService = GithubApplication.get(this).getGithubService();
-    picasso = GithubApplication.get(this).getPicasso();
+    HomeActivityComponent component = DaggerHomeActivityComponent.builder()
+            .homeActivityModule(new HomeActivityModule(this))
+            .githubApplicationComponent(GithubApplication.get(this).component())
+            .build();
 
-    adapterRepos = new AdapterRepos(this, picasso);
+    component.inject(this);
     listView.setAdapter(adapterRepos);
-
 
     reposCall = githubService.getAllRepos();
     reposCall.enqueue(new Callback<List<GithubRepo>>() {
