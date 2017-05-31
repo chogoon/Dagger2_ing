@@ -2,6 +2,7 @@ package com.chogoon.dagger2;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 
 import com.chogoon.dagger2.network.DateTimeConverter;
 import com.chogoon.dagger2.network.GithubService;
@@ -12,6 +13,9 @@ import com.squareup.picasso.Picasso;
 
 import org.joda.time.DateTime;
 
+import java.io.File;
+
+import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -47,31 +51,13 @@ public class GithubApplication extends Application {
 
         Timber.plant(new Timber.DebugTree());
 
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(DateTime.class, new DateTimeConverter());
-        Gson gson = gsonBuilder.create();
-
-        Timber.plant(new Timber.DebugTree());
-
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-            @Override
-            public void log(String message) {
-                Timber.i(message);
-            }
-        });
-
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor).build();
-
-        picasso = new Picasso.Builder(this)
-                .downloader(new OkHttp3Downloader(okHttpClient)).build();
-
-        Retrofit gitHubRetrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .baseUrl("https://api.github.com/")
+        GithubApplicationComponent component = DaggerGithubApplicationComponent.builder()
+                .contextModule(new ContextModule(this))
                 .build();
 
-        githubService = gitHubRetrofit.create(GithubService.class);
+        githubService = component.getGithubService();
+        picasso = component.getPicasso();
+
     }
 
     public static GithubApplication get(Activity activity) {
