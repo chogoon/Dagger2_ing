@@ -1,12 +1,15 @@
 
 package com.chogoon.dagger2.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.DateTime;
 
-public class GithubRepo {
+public class GithubRepo implements Parcelable {
 
   @SerializedName("id")
   @Expose
@@ -219,4 +222,31 @@ public class GithubRepo {
   @Expose
   public long subscribersCount;
 
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags) {
+    dest.writeLong(id);
+    dest.writeString(name);
+  }
+
+  public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+    public GithubRepo createFromParcel(Parcel in) {
+      return new GithubRepo(in);
+    }
+    public GithubRepo[] newArray(int size) {
+      return new GithubRepo[size];
+    }
+  };
+
+  public GithubRepo() { }
+
+  private GithubRepo(Parcel in) {
+    id = in.readLong();
+    name = in.readString();
+  }
 }

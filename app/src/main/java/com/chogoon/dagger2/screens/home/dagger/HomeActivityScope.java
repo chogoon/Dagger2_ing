@@ -1,4 +1,4 @@
-package com.chogoon.dagger2.screens;
+package com.chogoon.dagger2.screens.home.dagger;
 
 import javax.inject.Scope;
 

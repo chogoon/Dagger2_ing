@@ -1,11 +1,9 @@
-package com.chogoon.dagger2.screens;
+package com.chogoon.dagger2.screens.home.dagger;
 
 import android.app.Activity;
 
-import com.chogoon.dagger2.screens.home.AdapterRepos;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Picasso;
 
 import dagger.Module;
 import dagger.Provides;

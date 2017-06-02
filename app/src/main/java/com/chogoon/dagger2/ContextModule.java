@@ -2,8 +2,6 @@ package com.chogoon.dagger2;
 
 import android.content.Context;
 
-import javax.inject.Named;
-
 import dagger.Module;
 import dagger.Provides;
 

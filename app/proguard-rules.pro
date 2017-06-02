@@ -33,3 +33,6 @@
 -keepclassmembers class com.chogoon.dagger2.models.** {
   *;
 }
+
+-dontwarn java.lang.invoke.*
+-dontwarn **$$Lambda$*

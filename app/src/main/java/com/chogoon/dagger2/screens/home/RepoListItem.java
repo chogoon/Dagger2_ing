@@ -2,13 +2,11 @@ package com.chogoon.dagger2.screens.home;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.text.TextUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chogoon.dagger2.R;
-import com.chogoon.dagger2.models.GithubRepo;
 import com.chogoon.dagger2.models.ItemData;
 import com.squareup.picasso.Picasso;
 
@@ -20,7 +18,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-//@SuppressLint("ViewConstructor")
+@SuppressLint("ViewConstructor")
 public class RepoListItem extends FrameLayout {
 
     private final Picasso picasso;
@@ -46,7 +44,7 @@ public class RepoListItem extends FrameLayout {
     @BindView(R.id.repo_updated_at)
     TextView updatedAt;
 
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.fullDate();
+//    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.fullDate();
 
     public RepoListItem(Context context, Picasso picasso) {
         super(context);

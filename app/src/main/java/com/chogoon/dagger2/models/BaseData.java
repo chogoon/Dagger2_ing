@@ -1,6 +1,5 @@
 package com.chogoon.dagger2.models;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.DateTime;

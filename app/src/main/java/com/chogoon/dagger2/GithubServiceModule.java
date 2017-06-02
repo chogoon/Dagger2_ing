@@ -11,6 +11,7 @@ import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -37,8 +38,10 @@ public class GithubServiceModule {
     public Retrofit retrofit(OkHttpClient okHttpClient, Gson gson){
          return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                  .client(okHttpClient)
-                .baseUrl("https://api3.goodchoice.kr/")
+//                .baseUrl("https://api3.goodchoice.kr/")
+                .baseUrl("https://api.github.com/")
                 .build();
     }
 

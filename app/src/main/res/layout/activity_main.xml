@@ -1,15 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.chogoon.dagger2.MainActivity">
+    android:orientation="vertical"
+    tools:context="com.chogoon.dagger2.screens.MainActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/main_toolbar_"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"/>
 
     <TextView
+        android:id="@+id/main_text_"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"
         />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/user_name_"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="chogoon"
+        android:text="chogoon" />
+
+    <Button
+        android:id="@+id/main_button_"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/app_name"/>
+
+
+</LinearLayout>

@@ -4,25 +4,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.chogoon.dagger2.GithubApplication;
 import com.chogoon.dagger2.R;
 import com.chogoon.dagger2.models.BaseData;
 import com.chogoon.dagger2.models.GithubRepo;
-import com.chogoon.dagger2.models.GroupData;
 import com.chogoon.dagger2.models.ItemData;
 import com.chogoon.dagger2.network.GithubService;
 import com.chogoon.dagger2.screens.home.AdapterRepos;
+import com.chogoon.dagger2.screens.home.dagger.DaggerHomeActivityComponent;
+import com.chogoon.dagger2.screens.home.dagger.HomeActivityComponent;
+import com.chogoon.dagger2.screens.home.dagger.HomeActivityModule;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -30,8 +27,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -55,13 +50,12 @@ public class HomeActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_home);
     ButterKnife.bind(this);
-    HomeActivityComponent component = DaggerHomeActivityComponent.builder()
+
+    DaggerHomeActivityComponent.builder()
             .homeActivityModule(new HomeActivityModule(this))
             .githubApplicationComponent(GithubApplication.get(this).component())
-            .build();
+            .build().inject(this);
 
-
-    component.inject(this);
     listView.setAdapter(adapterRepos);
 
 //    reposCall = githubService.getAllRepos();

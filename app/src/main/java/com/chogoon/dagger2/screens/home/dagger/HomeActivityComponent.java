@@ -1,14 +1,9 @@
-package com.chogoon.dagger2.screens;
-
-import android.app.Activity;
+package com.chogoon.dagger2.screens.home.dagger;
 
 import com.chogoon.dagger2.GithubApplicationComponent;
-import com.chogoon.dagger2.PicassoModule;
-import com.chogoon.dagger2.network.GithubService;
-import com.chogoon.dagger2.screens.home.AdapterRepos;
+import com.chogoon.dagger2.screens.HomeActivity;
 
 import dagger.Component;
-import dagger.Module;
 
 /**
  * Created by chogoon on 2017-05-31.

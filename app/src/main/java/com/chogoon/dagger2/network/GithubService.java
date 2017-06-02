@@ -10,11 +10,12 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import rx.Observable;
 
 public interface GithubService {
 
   @GET("users/{username}/repos")
-  Call<List<GithubRepo>> getReposForUser(@Path("username") String username);
+  Observable<List<GithubRepo>> getReposForUser(@Path("username") String username);
 
   @GET("repositories")
   Call<List<GithubRepo>> getAllRepos();

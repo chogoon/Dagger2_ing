@@ -2,25 +2,12 @@ package com.chogoon.dagger2;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
-import android.util.Log;
 
-import com.chogoon.dagger2.network.DateTimeConverter;
-import com.chogoon.dagger2.network.GithubService;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.jakewharton.picasso.OkHttp3Downloader;
-import com.squareup.picasso.Picasso;
+import com.chogoon.dagger2.util.Constants;
 
-import org.joda.time.DateTime;
 
-import java.io.File;
+import net.danlew.android.joda.JodaTimeAndroid;
 
-import okhttp3.Cache;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
 
 /**
@@ -49,8 +36,17 @@ public class GithubApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        Timber.plant(new Timber.DebugTree());
+        if(BuildConfig.DEBUG){
+            Timber.plant(new Timber.DebugTree(){
+                @Override
+                protected void log(int priority, String tag, String message, Throwable t) {
+                    super.log(priority, Constants.LOGTAG, message, t);
+                }
+            });
 
+        }
+
+        JodaTimeAndroid.init(this);
         component = DaggerGithubApplicationComponent.builder()
                 .contextModule(new ContextModule(this))
                 .build();
